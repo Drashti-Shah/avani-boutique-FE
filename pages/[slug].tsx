@@ -64,7 +64,7 @@ export async function getStaticPaths() {
   const slugs = products.data.map((product) => product.attributes.slug);
 
   return {
-    paths: slugs.map((slug) => ({ params: { slug } })),
+    paths: slugs.map((slug) => ({ params: { slug } })) || [],
     fallback: true,
   };
 }
