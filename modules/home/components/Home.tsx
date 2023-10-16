@@ -1,9 +1,5 @@
 import { motion } from 'framer-motion';
-import Image from 'next/image';
-
 import Footer from '@/common/components/footer/components/Footer';
-import mainImage from '@/public/img/wallpaper3.jpg';
-
 import {
   collectionListAnimation,
   imageAnimation,
@@ -38,7 +34,7 @@ const Home = ({ product, blurDataUrls }: ProductDetailsPageProps) => {
           <h1 className={`${headerStyle} block sm:hidden`}>choice.</h1>
         </motion.div>
         <motion.div className="h-full w-full object-cover object-center">
-          <HeroSlider images={product.data} blurDataUrls={blurDataUrls} />
+          <HeroSlider images={product} blurDataUrls={blurDataUrls } />
         </motion.div>
         <motion.div
           variants={collectionListAnimation}

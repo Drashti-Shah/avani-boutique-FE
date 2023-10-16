@@ -34,7 +34,7 @@ const ProductComponent = ({
   }, 200);
 
   return (
-    <motion.div className="h-max w-max" layoutId={id}>
+    <motion.div  layoutId={id}>
       <Link href={slug} passHref>
         <a
           className={`block w-72 cursor-pointer ${
@@ -70,7 +70,7 @@ const ProductComponent = ({
 
       <div className="mt-2 flex justify-between px-2">
         <div>
-          <h4 className="-mb-1 text-lg">{name}</h4>
+          <h4 className="-mb-1 text-lg ">{name}</h4>
           <h5 className="text-zinc-500">
             {category[0].toUpperCase() + category.slice(1)}
           </h5>

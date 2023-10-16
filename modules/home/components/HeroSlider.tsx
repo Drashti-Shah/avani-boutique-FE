@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 
 import { cloudinaryLoader } from '@/common/lib/cloudinaryLoader';
+import mainImage from '@/public/img/main.jpg';
 
 import { galleryVariants } from '../animations/Home.animations';
 
@@ -17,7 +18,7 @@ const HerSlider = ({
   images,
   blurDataUrls,
 }: {
-  images: Image[];
+  images: any;
   blurDataUrls: { [key: string]: string };
 }) => {
   const [initial, setInitial] = useState(true);
@@ -61,15 +62,15 @@ const HerSlider = ({
       >
         <Image
           loader={cloudinaryLoader}
-          src={images[imageIndex].attributes.hash}
+          src={images && images[imageIndex]?.attributes?.hash || mainImage}
           alt="Detail photo"
-          width={images[imageIndex].attributes.width}
-          height={images[imageIndex].attributes.height}
+          width={images && images[imageIndex].attributes.width}
+          height={images && images[imageIndex].attributes.height}
           className="h-full w-full object-cover object-center"
           layout="raw"
           priority
           placeholder="blur"
-          blurDataURL={blurDataUrls[images[imageIndex].attributes.hash]}
+          blurDataURL={images && blurDataUrls[images[imageIndex].attributes.hash] || ''}
         />
       </motion.div>
       <button

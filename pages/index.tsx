@@ -1,22 +1,27 @@
 import type { NextPage } from 'next';
 
-import Home from '@/modules/home/components/Home';
-import { GET_SLIDER } from '@/common/graphql/query/GET_SLIDER';
 import { client } from '@/common/graphql/client';
+import { GET_SLIDER } from '@/common/graphql/query/GET_SLIDER';
 import { getBase64ImageUrl } from '@/common/lib/getBlurUrl';
+import Home from '@/modules/home/components/Home';
 
-const HomePage: NextPage = ({product, blurDataUrls}: {product: any; blurDataUrls: any;}) => {
+type HomeProps = {
+  product: any;
+  blurDataUrls: any;
+};
+
+const HomePage: NextPage<HomeProps> = ({ product, blurDataUrls }) => {
   return <Home product={product} blurDataUrls={blurDataUrls} />;
 };
 
-  export default HomePage;
+export default HomePage;
 export async function getStaticProps() {
   const {
-    data: {sliders},
-  } = await client.query<{ sliderImage: { data: [] } }>({
+    data: { sliders },
+  } = await client.query<{ sliders: { data: any } }>({
     query: GET_SLIDER,
     variables: {
-      sliderName: "homePageSlider",
+      sliderName: 'homePageSlider',
     },
   });
 
@@ -24,7 +29,7 @@ export async function getStaticProps() {
 
   if (sliders.data[0])
     await Promise.all(
-      sliders.data[0].attributes.sliderImage.data.map(async (image: any) => {
+      sliders?.data[0]?.attributes.sliderImage.data.map(async (image: any) => {
         const dataUrl = await getBase64ImageUrl(image.attributes.hash, true);
 
         blurDataUrls[image.attributes.hash] = dataUrl;
@@ -33,8 +38,8 @@ export async function getStaticProps() {
 
   return {
     props: {
-      product: sliders.data[0].attributes.sliderImage || null,
-      blurDataUrls,
+      product: sliders?.data[0]?.attributes?.sliderImage.data || null,
+      blurDataUrls: blurDataUrls || [],
     },
   };
 }

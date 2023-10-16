@@ -26,9 +26,9 @@ const ProductDetails = ({ product, blurDataUrls }: ProductDetailsPageProps) => {
       productVariants,
       category,
       productDetails,
+      promotionPrice,
     },
   } = product;
-
 
   if (!slug) return null;
 
@@ -52,7 +52,7 @@ const ProductDetails = ({ product, blurDataUrls }: ProductDetailsPageProps) => {
           </h3>
 
 
-          <h3 className="mt-10 text-3xl 2xl:text-4xl">€{price}</h3>
+          <h3 className="mt-10 text-3xl 2xl:text-4xl">₹{promotionPrice ? promotionPrice :price}</h3>
 
           <div className="mt-7 flex flex-wrap gap-2">
             {productVariants.data &&
